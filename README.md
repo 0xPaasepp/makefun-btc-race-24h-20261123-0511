@@ -8,13 +8,13 @@ A pure-stdlib Python trading bot for make.fun's [Race a BTC trading bot live for
 
 ## Strategy
 
-Dip-buy mean reversion on cbBTC 1-minute bars: buy a deep dislocation (140 bps below the 30-bar SMA) once it stops falling (rising close); exit +200 bps TP, -100 bps SL, or 1440-bar hold. No primary buy after bar 1320. Late fallbacks guarantee ≥1 trade, at 1/3 size with a stall exit.
+Dip-ladder mean reversion on cbBTC 1-minute bars: buy a dislocation in slices (25% of cash at 90 bps below the 30-bar SMA on a rising close, +50% of the rest at 130, the remainder at 170); exit +250 bps TP, -120 bps SL, or 1440-bar hold. No primary buy after bar 1320. Late fallbacks guarantee ≥1 trade, at 1/3 size.
 
 ## Results (frozen dev window, 1,440 bars)
 
-- Net PnL +$4.05 (+0.41%), DD 0.08%, 2 trades, fees $0.27 (fallback trade, buy 1291 / sell 1328; primary never fires, deepest dip -107 bps)
-- Out of sample (previous dev window): +$18.33, 2 trades, DD 1.50%
-- Stress (68 windows): mean +$3.02/+$0.72, worst -$13.70/-$14.65, DD ≤2.02%, trade on 34/34 both sets
+- Net PnL +$1.90 (+0.19%), DD 0.40%, 1 trade, fees $0.20 (first slice only, buy 435, flattened at end; deepest dip -107 bps)
+- Out of sample (previous dev window): +$23.83, 4 trades, DD 1.50% (slices bought 66-68, sold 507 at TP250)
+- Stress (68 windows): mean +$5.31/+$0.31, worst -$14.62/-$13.76, DD ≤2.06%, trade on 34/34 both sets
 
 ## Run it
 
